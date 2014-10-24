@@ -15,6 +15,8 @@ namespace MyLibrary.DB
     
     public class DBProvider
     {
+       
+
         /// <summary>
         /// 是否成功
         /// </summary>
@@ -33,7 +35,52 @@ namespace MyLibrary.DB
         /// <summary>
         /// 指定如何解譯命令字串。
         /// </summary>
-        public CommandType CommandType { set; get; }
+        private CommandType _CommandType = CommandType.Text;
+
+        /// <summary>
+        /// 指定如何解譯命令字串。
+        /// </summary>
+        public CommandType CommandType
+        {
+            set { this._CommandType = value; }
+            get { return this._CommandType; }
+        }
+
+
+        private DataTable dt = new DataTable();
+
+        /// <summary>
+        /// 屬性回復預設值
+        /// </summary>
+        private void BeforeUseReset()
+        {
+            this.IsSuccess = false;
+            this.ErrorMessage = string.Empty;
+            this.dt.Clear();
+        }
+
+
+        private void AfterUseReset()
+        {
+            this._CommandType = CommandType.Text;
+            this._ConnectionTimeout = 30;
+        }
+
+        /// <summary>
+        /// TimeOut時間
+        /// </summary>
+        private int _ConnectionTimeout = 30;
+
+        /// <summary>
+        /// 設定/取得 TimeOut時間
+        /// </summary>
+        public int ConnectionTimeout
+        {
+            set { this._ConnectionTimeout = value; }
+            get { return this._ConnectionTimeout; }
+        }
+
+
 
         /// <summary>
         /// 查詢並回傳值
@@ -43,20 +90,19 @@ namespace MyLibrary.DB
         /// <returns>查詢到的值</returns>
         public object ValueListSQL(string SQLcommand, IList<IDataParameter> Parms)
         {
-            IsSuccess = false;
-            ErrorMessage = null;
+            BeforeUseReset();
             object obj = null;
             using (SqlConnection con = new SqlConnection(this.ConnectString))
             {
                 using (SqlCommand cmd = new SqlCommand(SQLcommand, con))
                 {
-
+                    cmd.CommandTimeout = this._ConnectionTimeout;
 
                     for (int i = 0; i < Parms.Count; i++)
                     {
                         cmd.Parameters.Add(new SqlParameter(Parms[i].ParameterName, Parms[i].Value));
                     }
-                    cmd.CommandType = this.CommandType;
+                    cmd.CommandType = this._CommandType;
 
                     try
                     {
@@ -71,7 +117,7 @@ namespace MyLibrary.DB
 
                 }
             }
-            Parms.Clear();
+            AfterUseReset();
             return obj;
         }
 
@@ -82,15 +128,14 @@ namespace MyLibrary.DB
         /// <returns>查詢到的值</returns>
         public object ValueListSQL(string SQLcommand)
         {
-            IsSuccess = false;
-            ErrorMessage = null;
+            BeforeUseReset();
             object obj = null;
             using (SqlConnection con = new SqlConnection(this.ConnectString))
             {
                 using (SqlCommand cmd = new SqlCommand(SQLcommand, con))
                 {
-
-                    cmd.CommandType = this.CommandType;
+                    cmd.CommandTimeout = this._ConnectionTimeout;
+                    cmd.CommandType = this._CommandType;
 
                     try
                     {
@@ -105,6 +150,7 @@ namespace MyLibrary.DB
 
                 }
             }
+            AfterUseReset();
             return obj;
         }
 
@@ -116,20 +162,17 @@ namespace MyLibrary.DB
         /// <returns>資料表</returns>
         public DataTable ListSQL(string SQLcommand, IList<IDataParameter> Parms)
         {
-            IsSuccess = false;
-            ErrorMessage = null;
-            DataTable dt = new DataTable();
-
+            BeforeUseReset();
             using (SqlConnection con = new SqlConnection(this.ConnectString))
             {
                 using (SqlDataAdapter da = new SqlDataAdapter(SQLcommand, con))
                 {
-
+                    da.SelectCommand.CommandTimeout = this._ConnectionTimeout;
                     for (int i = 0; i < Parms.Count; i++)
                     {
                         da.SelectCommand.Parameters.Add(new SqlParameter(Parms[i].ParameterName, Parms[i].Value));
                     }
-                    da.SelectCommand.CommandType = this.CommandType;
+                    da.SelectCommand.CommandType = this._CommandType;
 
                     try
                     {
@@ -144,7 +187,7 @@ namespace MyLibrary.DB
 
                 }
             }
-            Parms.Clear();
+            AfterUseReset();
             return dt;
         }
 
@@ -155,17 +198,14 @@ namespace MyLibrary.DB
         /// <returns>資料表</returns>
         public DataTable ListSQL(string SQLcommand)
         {
-            IsSuccess = false;
-            ErrorMessage = null;
-            DataTable dt = new DataTable();
-
+            BeforeUseReset();
             using (SqlConnection con = new SqlConnection(this.ConnectString))
             {
                 
                 using (SqlDataAdapter da = new SqlDataAdapter(SQLcommand, con))
                 {
-
-                    da.SelectCommand.CommandType = this.CommandType;
+                    da.SelectCommand.CommandTimeout = this._ConnectionTimeout;
+                    da.SelectCommand.CommandType = this._CommandType;
 
                     try
                     {
@@ -180,7 +220,7 @@ namespace MyLibrary.DB
 
                 }
             }
-
+            AfterUseReset();
             return dt;
         }
 
@@ -192,19 +232,19 @@ namespace MyLibrary.DB
         /// <returns>受影響的資料數目</returns>
         public object ExecSQL(string SQLcommand, IList<IDataParameter> Parms)
         {
+            BeforeUseReset();
             object obj = null;
-            IsSuccess = false;
-            ErrorMessage = null;
-
+            
             using (SqlConnection con = new SqlConnection(this.ConnectString))
             {
                 using (SqlCommand cmd = new SqlCommand(SQLcommand, con))
                 {
+                    cmd.CommandTimeout = this._ConnectionTimeout;
                     for (int i = 0; i < Parms.Count; i++)
                     {
                         cmd.Parameters.Add(new SqlParameter(Parms[i].ParameterName, Parms[i].Value));
                     }
-                    cmd.CommandType = this.CommandType;
+                    cmd.CommandType = this._CommandType;
 
                     try
                     {
@@ -219,7 +259,7 @@ namespace MyLibrary.DB
 
                 }
             }
-            Parms.Clear();
+            AfterUseReset();
             return obj;
         }
 
@@ -230,16 +270,15 @@ namespace MyLibrary.DB
         /// <returns>受影響的資料數目</returns>
         public object ExecSQL(string SQLcommand)
         {
+            BeforeUseReset();
             object obj = null;
-            IsSuccess = false;
-            ErrorMessage = null;
-
+            
             using (SqlConnection con = new SqlConnection(this.ConnectString))
             {
                 using (SqlCommand cmd = new SqlCommand(SQLcommand, con))
                 {
-                    
-                    cmd.CommandType = this.CommandType;
+                    cmd.CommandTimeout = this._ConnectionTimeout;
+                    cmd.CommandType = this._CommandType;
 
                     try
                     {
@@ -254,6 +293,7 @@ namespace MyLibrary.DB
 
                 }
             }
+            AfterUseReset();
             return obj;
         }
     }
