@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -14,7 +13,33 @@ namespace MyLibrary.MyReflection
     {
 
         /// <summary>
-        /// 將傳入的datatable 對應到傳入的型別上，並存在List上，執行完回傳IList，裡面是已經應好並轉型完成的型別
+        /// 將傳入的datatable 對應到傳入的型別上，執行完回傳T，裡面是已經對應好並轉型完成的型別
+        /// </summary>
+        /// <typeparam name="T">Model class</typeparam>
+        /// <param name="dt">要對應的表格</param>
+        /// <returns>回傳對應好的 T </returns>
+        public T DataTableRefToOne<T>(DataTable dt) where T : new()
+        {
+            DataTableReader dtr = new DataTableReader(dt);
+
+            T item = new T();
+
+            while (dtr.Read())
+            {
+                for (int i = 0; i < dtr.FieldCount; i++)
+                {
+                    PropertyInfo property = item.GetType().GetProperty(dtr.GetName(i));
+                    SetPropertyValue(item, dtr[dtr.GetName(i)].ToString(), property);
+                }
+            }
+
+            return item;
+        }
+
+
+
+        /// <summary>
+        /// 將傳入的datatable 對應到傳入的型別上，並存在List上，執行完回傳IList，裡面是已經對應好並轉型完成的型別
         /// </summary>
         /// <typeparam name="T">Model class</typeparam>
         /// <param name="dt">要對應的表格</param>

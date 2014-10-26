@@ -15,7 +15,16 @@ namespace MyLibrary.DB
     
     public class DBProvider
     {
-       
+        public DBProvider()
+        {
+
+        }
+
+        public DBProvider(string ConnectionString)
+        {
+            this.ConnectString = ConnectionString;
+        }
+
 
         /// <summary>
         /// 是否成功
