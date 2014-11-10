@@ -127,6 +127,7 @@ namespace MyLibrary.DB
                 }
             }
             AfterUseReset();
+            Parms.Clear();
             return obj;
         }
 
@@ -197,6 +198,7 @@ namespace MyLibrary.DB
                 }
             }
             AfterUseReset();
+            Parms.Clear();
             return dt;
         }
 
@@ -269,6 +271,7 @@ namespace MyLibrary.DB
                 }
             }
             AfterUseReset();
+            Parms.Clear();
             return obj;
         }
 
