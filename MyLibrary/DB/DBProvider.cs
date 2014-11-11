@@ -65,7 +65,7 @@ namespace MyLibrary.DB
         {
             this.IsSuccess = false;
             this.ErrorMessage = string.Empty;
-            this.dt.Clear();
+            this.dt = new DataTable();
         }
 
 
