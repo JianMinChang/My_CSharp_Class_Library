@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Cryptography\Encrypt.cs" />
     <Compile Include="DB\DBProvider.cs" />
+    <Compile Include="Mobile\OSDetail.cs" />
     <Compile Include="MyReflection\Reflection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Valid\ValidText.cs" />
