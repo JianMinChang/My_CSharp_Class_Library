@@ -12,4 +12,10 @@ VailidText:Valid Use Input
 
 XmlToDataTable:DataTable transfer XML
 
-Last Modify:2014/10/10
+ShareDLL:Need Use DLL
+
+OSDetail:Get OSVersion Detail
+
+WebClass:Get URL QueryString  Change TO Object
+
+Last Modify:2014/12/27
