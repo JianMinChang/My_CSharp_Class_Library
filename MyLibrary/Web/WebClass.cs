@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +8,14 @@ using System.Web;
 
 namespace MyLibrary.Web
 {
-    public class WebTools
+    public class HttpQueryStringObj
     {
+        /// <summary>
+        /// 將傳入的URL字串含有的QueryString轉換成T型別(泛型)物件
+        /// </summary>
+        /// <typeparam name="T">T泛型類別</typeparam>
+        /// <param name="queryString">含QueryString的URL</param>
+        /// <returns>T型別物件</returns>
         public static T DeserializeFromQueryString<T>(string queryString)
         {
             var collection = HttpUtility.ParseQueryString(queryString);
