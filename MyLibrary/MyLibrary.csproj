@@ -50,7 +50,9 @@
     <Compile Include="MyReflection\Reflection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Valid\ValidText.cs" />
-    <Compile Include="Web\WebClass.cs" />
+    <Compile Include="Web\WebParms.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Xml\XmlToDataTable.cs" />
   </ItemGroup>
   <ItemGroup>
