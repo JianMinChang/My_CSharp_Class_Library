@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Collections;
 
 namespace MyLibrary.MyReflection
 {
@@ -18,7 +19,7 @@ namespace MyLibrary.MyReflection
         /// <typeparam name="T">Model class</typeparam>
         /// <param name="dt">要對應的表格</param>
         /// <returns>回傳對應好的 T </returns>
-        public T DataTableRefToOne<T>(DataTable dt) where T : new()
+        public  T DataTableRefToOne<T>(DataTable dt) where T : new()
         {
             DataTableReader dtr = new DataTableReader(dt);
 
@@ -105,6 +106,36 @@ namespace MyLibrary.MyReflection
             {
                 //throw;
             }
+        }
+
+
+
+        /// <summary>
+        /// 將物件轉換成DataTable
+        /// </summary>
+        /// <typeparam name="T">j物件型別</typeparam>
+        /// <param name="collection">物件集合容器</param>
+        /// <returns>DataTable</returns>
+        public static DataTable ToDataTable<T>(IEnumerable<T> collection)
+        {
+            var props = typeof(T).GetProperties();
+            var dt = new DataTable();
+            dt.Columns.AddRange(props.Select(p => new DataColumn(p.Name, p.PropertyType)).ToArray());
+            if (collection.Count() > 0)
+            {
+                for (int i = 0; i < collection.Count(); i++)
+                {
+                    ArrayList tempList = new ArrayList();
+                    foreach (PropertyInfo pi in props)
+                    {
+                        object obj = pi.GetValue(collection.ElementAt(i), null);
+                        tempList.Add(obj);
+                    }
+                    object[] array = tempList.ToArray();
+                    dt.LoadDataRow(array, true);
+                }
+            }
+            return dt;
         }
     }
 }
