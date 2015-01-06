@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Configuration;
-
+using MyLibrary.MyReflection;
 
 namespace MyLibrary.DB
 {
@@ -308,6 +308,97 @@ namespace MyLibrary.DB
             AfterUseReset();
             return obj;
         }
+
+
+        /// <summary>
+        /// 大量新增複製資料(來源DataTable)
+        /// </summary>
+        /// <param name="dt">來源DataTable資料表</param>
+        /// <param name="DestinationTable">DB目的地資料表</param>
+        public void LotSqlBulkCopy(DataTable dt, string DestinationTable)
+        {
+            BeforeUseReset();
+
+            try
+            {
+
+
+                using (SqlConnection conn = new SqlConnection(this.ConnectString))
+                {
+                    conn.Open();
+                    SqlTransaction trans = conn.BeginTransaction();
+                    //SqlBulkCopy批次處理新增 沒有檢驗比對處理
+                    using (SqlBulkCopy bulkCopy =
+                               new SqlBulkCopy(conn, SqlBulkCopyOptions.KeepIdentity, trans))
+                    {
+
+
+                        bulkCopy.DestinationTableName = DestinationTable;
+                        bulkCopy.WriteToServer(dt);
+                    }
+
+                    trans.Commit();
+                }
+            }
+            catch (Exception e)
+            {
+                this.ErrorMessage = e.Message;
+                this.IsSuccess = false;
+            }
+
+            if (this.ErrorMessage == string.Empty)
+            {
+                this.IsSuccess = true;
+            }
+
+        }
+
+        /// <summary>
+        /// 大量新增複製資料(來源物件集合)
+        /// </summary>
+        /// <typeparam name="T">物件型別</typeparam>
+        /// <param name="DestinationTable">目的地資料表名稱</param>
+        /// <param name="temp">物件集合</param>
+        public void LotSqlBulkCopy<T>(string DestinationTable, IList<T> temp)
+        {
+            BeforeUseReset();
+            DataTable newdt =  MyLibrary.MyReflection.Reflection.ToDataTable(temp);
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(this.ConnectString))
+                {
+                    conn.Open();
+                    SqlTransaction trans = conn.BeginTransaction();
+                    //SqlBulkCopy批次處理新增 沒有檢驗比對處理
+                    using (SqlBulkCopy bulkCopy =
+                               new SqlBulkCopy(conn, SqlBulkCopyOptions.KeepIdentity, trans))
+                    {
+                        bulkCopy.DestinationTableName = DestinationTable;
+                        bulkCopy.WriteToServer(newdt);
+                    }
+
+                    trans.Commit();
+                }
+            }
+            catch (Exception e)
+            {
+                this.ErrorMessage = e.Message;
+                this.IsSuccess = false;
+            }
+
+            if (this.ErrorMessage == string.Empty)
+            {
+                this.IsSuccess = true;
+            }
+
+        }
+
+
+
+
+
+
+
     }
 
     
