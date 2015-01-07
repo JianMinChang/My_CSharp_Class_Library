@@ -331,8 +331,7 @@ namespace MyLibrary.DB
                     using (SqlBulkCopy bulkCopy =
                                new SqlBulkCopy(conn, SqlBulkCopyOptions.KeepIdentity, trans))
                     {
-
-
+                        bulkCopy.BulkCopyTimeout = this._ConnectionTimeout;
                         bulkCopy.DestinationTableName = DestinationTable;
                         bulkCopy.WriteToServer(dt);
                     }
@@ -350,7 +349,7 @@ namespace MyLibrary.DB
             {
                 this.IsSuccess = true;
             }
-
+            AfterUseReset();
         }
 
         /// <summary>
@@ -373,6 +372,7 @@ namespace MyLibrary.DB
                     using (SqlBulkCopy bulkCopy =
                                new SqlBulkCopy(conn, SqlBulkCopyOptions.KeepIdentity, trans))
                     {
+                        bulkCopy.BulkCopyTimeout = this._ConnectionTimeout;
                         bulkCopy.DestinationTableName = DestinationTable;
                         bulkCopy.WriteToServer(newdt);
                     }
@@ -390,7 +390,7 @@ namespace MyLibrary.DB
             {
                 this.IsSuccess = true;
             }
-
+            AfterUseReset();
         }
 
 
