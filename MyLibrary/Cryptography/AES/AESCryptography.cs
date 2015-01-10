@@ -15,10 +15,10 @@ namespace MyLibrary.Cryptography.AES
         /// <param name="strData">須加密的資料</param>
         /// <param name="strKey">加密的key</param>
         /// <returns></returns>
-        public static string encrypt(string strData,string strKey )
+        public static string Encrypt(string strData,string strKey )
         {
             byte[] sourceBytes = UTF8Encoding.UTF8.GetBytes(strData);
-            byte[] byte_pwdMD5 = UTF8Encoding.UTF8.GetBytes(strKey);
+            byte[] byte_pwdMD5 = UTF8Encoding.UTF8.GetBytes(GetMD5(strKey));
 
 
             RijndaelManaged rDel = new RijndaelManaged();
@@ -39,7 +39,7 @@ namespace MyLibrary.Cryptography.AES
         /// <returns></returns>
         public static string Decrypt(string toDecrypt, string key)
         {
-            byte[] keyArray = UTF8Encoding.UTF8.GetBytes(key);
+            byte[] keyArray = UTF8Encoding.UTF8.GetBytes(GetMD5(key));
             byte[] toEncryptArray = Convert.FromBase64String(toDecrypt);
 
             RijndaelManaged rDel = new RijndaelManaged();
