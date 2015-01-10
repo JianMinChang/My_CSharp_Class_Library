@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cryptography\AES\AESCryptography.cs" />
     <Compile Include="Cryptography\MD5\Encrypt.cs" />
     <Compile Include="Cryptography\RSA\RSACryptography.cs" />
     <Compile Include="CustomNumber\NumberHandle.cs" />
