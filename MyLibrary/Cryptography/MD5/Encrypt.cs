@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 
-namespace MyLibrary.Cryptography
+namespace MyLibrary.Cryptography.MD5
 {
-    public class Encrypt
+    public class MD5Cryptography
     {
         /// <summary>
         /// MD5加密算法(無加額外單字)
