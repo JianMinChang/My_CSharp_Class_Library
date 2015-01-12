@@ -152,11 +152,16 @@ namespace MyLibrary.Cryptography.RSA
             this.ErrorMessage = string.Empty;
         }
 
-        public byte[] RSAEncrypt(string DataToEncrypt)
+        /// <summary>
+        /// RSA加密
+        /// </summary>
+        /// <param name="DataToEncrypt">須加密的字串</param>
+        /// <returns>加密後的字串</returns>
+        public string RSAEncrypt(string DataToEncrypt)
         {
             Reset();
 
-            if (this._PublicKey==string.Empty)
+            if (this._PublicKey == string.Empty)
             {
                 this.ErrorMessage = "No PublicKey";
                 return null;
@@ -167,7 +172,7 @@ namespace MyLibrary.Cryptography.RSA
                 {
                     byte[] encryptedData;
                     encryptedData = encryptor(ByteConverter.GetBytes(DataToEncrypt));
-                    return encryptedData;
+                    return Convert.ToBase64String(encryptedData);
                 }
                 catch (CryptographicException e)
                 {
@@ -177,7 +182,12 @@ namespace MyLibrary.Cryptography.RSA
             }
         }
 
-        public string RSADecrypt(byte[] DataToDecrypt)
+        /// <summary>
+        /// RSA解密
+        /// </summary>
+        /// <param name="DataToDecrypt">須解密的字串</param>
+        /// <returns>解密後字串</returns>
+        public string RSADecrypt(string DataToDecrypt)
         {
             Reset();
             string word = string.Empty;
@@ -193,7 +203,7 @@ namespace MyLibrary.Cryptography.RSA
                 {
                     byte[] decryptedData;
 
-                    decryptedData = decryptor(DataToDecrypt);
+                    decryptedData = decryptor(Convert.FromBase64String(DataToDecrypt));
                     word = ByteConverter.GetString(decryptedData);
                 }
                 catch (CryptographicException e)
@@ -211,7 +221,6 @@ namespace MyLibrary.Cryptography.RSA
                 }
             }
         }
-
 
 
         private byte[] encryptor(byte[] OriginalData)
