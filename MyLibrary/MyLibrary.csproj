@@ -57,7 +57,7 @@
     <Compile Include="Web\WebParms.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Xml\XmlToDataTable.cs" />
+    <Compile Include="Xml\CustomXML.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ShareDLL\Newtonsoft.Json.dll" />
