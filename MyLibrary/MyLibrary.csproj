@@ -57,6 +57,7 @@
     <Compile Include="Web\WebParms.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Web\WebRequest.cs" />
     <Compile Include="Xml\CustomXML.cs" />
   </ItemGroup>
   <ItemGroup>
