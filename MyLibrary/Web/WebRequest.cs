@@ -8,16 +8,17 @@ using System.IO;
 
 namespace MyLibrary.Web
 {
+
     /// <summary>
     /// WebRequest.Method
     /// </summary>
     public enum WebRequestMethod
     {
-        Get=0, Post=1, Put=2, Delete=3, Head=4, Trace=5, Options=6
+        Get = 0, Post = 1, Put = 2, Delete = 3, Head = 4, Trace = 5, Options = 6
     }
 
 
-    public  class CustomWebRequest
+    public class CustomWebRequest
     {
         /// <summary>
         /// 是否成功
@@ -42,16 +43,16 @@ namespace MyLibrary.Web
             }
         }
 
-        private int _webContinueTimeout = 20;
-        public int WebContinueTimeout
+        private int _webTimeout = 20 * 1000;
+        public int WebTimeout
         {
             set
             {
-                this._webContinueTimeout = value;
+                this._webTimeout = value * 1000;
             }
             private get
             {
-                return this._webContinueTimeout;
+                return this._webTimeout;
             }
         }
 
@@ -75,7 +76,7 @@ namespace MyLibrary.Web
         private void AfterReset()
         {
             this._method = WebRequestMethod.Get;
-            this._webContinueTimeout = 20;
+            this._webTimeout = 20 * 1000;
             this._webContentType = "application/x-www-form-urlencoded";
         }
 
@@ -92,32 +93,53 @@ namespace MyLibrary.Web
             }
         }
 
-        
+
 
         public string SendAction(string strURL, IDictionary<string, string> Parms)
         {
             BeforeReset();
 
+
+
+
             foreach (var item in Parms)
             {
                 strParame.Append(item.Key + "=" + item.Value + "&");
             }
+            string strtemp = string.Empty;
+            strtemp = strParame.ToString().TrimEnd('&');
 
-            byte[] postData = Encoding.UTF8.GetBytes( strParame.ToString().TrimEnd('&'));
+            byte[] postData = null;
+
+            //Get時需要
+            if (this.Method == WebRequestMethod.Get)
+            {
+                strURL += "?" + strtemp;
+            }
+            else
+            {
+                postData = Encoding.UTF8.GetBytes(strtemp);
+            }
+
+
 
             WebRequest request = WebRequest.Create(strURL);
             request.Method = this._method.ToString();
             request.ContentType = this._webContentType;
-            request.Timeout = this._webContinueTimeout;
-            request.ContentLength = postData.Length;
-            
+            request.Timeout = this._webTimeout;
+            request.ContentLength = postData == null ? 0 : postData.Length;
+
 
             try
             {
-                using (Stream st = request.GetRequestStream())
+                if (this.Method != WebRequestMethod.Get)
                 {
-                    st.Write(postData, 0, postData.Length);
+                    using (Stream st = request.GetRequestStream())
+                    {
+                        st.Write(postData, 0, postData.Length);
+                    }
                 }
+
 
                 using (WebResponse response = request.GetResponse())
                 {
