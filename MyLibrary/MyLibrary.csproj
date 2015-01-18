@@ -50,6 +50,7 @@
     <Compile Include="Cryptography\RSA\RSACryptography.cs" />
     <Compile Include="CustomNumber\NumberHandle.cs" />
     <Compile Include="DB\DBProvider.cs" />
+    <Compile Include="File\FileHandle.cs" />
     <Compile Include="Mobile\OSDetail.cs" />
     <Compile Include="MyReflection\Reflection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
