@@ -30,7 +30,7 @@ namespace MyLibrary.Web
         /// <typeparam name="T">T泛型類別</typeparam>
         /// <param name="temp">QueryString集合</param>
         /// <returns>T型別物件</returns>
-        public T DeserializeFromQueryString<T>(System.Collections.Specialized.NameValueCollection temp)
+        public static T DeserializeFromQueryString<T>(System.Collections.Specialized.NameValueCollection temp)
         {
             var json = JsonConvert.SerializeObject(
                            temp.AllKeys.ToDictionary(x => x, x => temp[x]));
@@ -44,15 +44,11 @@ namespace MyLibrary.Web
         /// <typeparam name="T">T泛型類別</typeparam>
         /// <param name="temp">Form集合</param>
         /// <returns>T型別物件</returns>
-        public T DeserializeFromPostForm<T>(System.Collections.Specialized.NameValueCollection temp)
+        public static T DeserializeFromPostForm<T>(System.Collections.Specialized.NameValueCollection temp)
         {
             var t = temp.AllKeys.ToDictionary(x => x, x => temp[x]);
 
-            var t2 = from c in t
-                     where !t.Keys.Contains("__VIEWSTATE")
-                     select c;
-
-            var t1 = JsonConvert.SerializeObject(t2);
+            var t1 = JsonConvert.SerializeObject(t);
 
             return JsonConvert.DeserializeObject<T>(t1);
         }
