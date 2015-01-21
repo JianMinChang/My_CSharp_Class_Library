@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyLibrary.BaseCode.InterFace;
 
 namespace MyLibrary.BaseCode.Class
 {
-    public class BaseCustomClass
+    public class BaseCustomClass : IBaseRepository
     {
         public bool IsSuccess { protected set; get; }
 
