@@ -78,7 +78,7 @@ namespace MyLibrary.Attribute.Web.WebForm
                     var valRes = attribute.GetValidationResult(value, validationContext);
                     if (valRes != null && !string.IsNullOrWhiteSpace(valRes.ErrorMessage) && errorMsgBuilder.Length == 0)
                     {
-                        errorMsgBuilder.AppendLine(FormatErrorMessage(valRes.ErrorMessage));
+                        errorMsgBuilder.AppendLine(FormatErrorMessage(attribute.ErrorMessage));
                     }
                 }
 
