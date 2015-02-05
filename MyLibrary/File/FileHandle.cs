@@ -66,7 +66,7 @@ namespace MyLibrary.CustomFile
         /// </summary>
         /// <param name="FileNamePath">檔案路徑</param>
         /// <returns></returns>
-        public IList<string> FileReadTxtContent(string FileNamePath)
+        public IList<string> FileReadLineTxtContent(string FileNamePath)
         {
             ResetStatus();
             IList<string> FileContentOnLine = new List<string>();
@@ -110,6 +110,54 @@ namespace MyLibrary.CustomFile
 
             return FileContentOnLine;
         }
+
+        /// <summary>
+        /// 讀取.txt檔案內容
+        /// </summary>
+        /// <param name="FileNamePath">檔案路徑</param>
+        /// <returns></returns>
+        public string FileReadJsonTxtContent(string FileNamePath)
+        {
+            ResetStatus();
+            string FileContentOnLine = string.Empty;
+
+            string extension = string.Empty;
+
+            extension = Path.GetExtension(FileNamePath);
+
+            if (File.Exists(FileNamePath))
+            {
+                if (extension.ToLower() == ".txt")
+                {
+                    try
+                    {
+                        using (StreamReader sr = new StreamReader(FileNamePath))
+                        {
+                            FileContentOnLine = sr.ReadToEnd();
+                        }
+                        this.IsSuccess = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        this.IsSuccess = false;
+                        this.ErrorMessage = ex.Message;
+                    }
+                }
+                else
+                {
+                    this.ErrorMessage = "File's extension not txt";
+                }
+            }
+            else
+            {
+                this.ErrorMessage = "File Not Exist";
+            }
+
+
+            return FileContentOnLine;
+        }
+
+
 
         /// <summary>
         /// 寫入Txt檔案,檔案存在接續寫入，不存在則建立並寫入
