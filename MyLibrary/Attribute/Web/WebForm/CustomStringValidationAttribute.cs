@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using MyLibrary.Enum.CustomEnumRepository;
+using MyLibrary.Enum;
 
 namespace MyLibrary.Attribute.Web.WebForm
 {
@@ -14,7 +16,7 @@ namespace MyLibrary.Attribute.Web.WebForm
     {
         private readonly bool isRequired;
 
-        public string Regex { get; set; }
+        private readonly string Regex;
 
         public int StringMaxLength { get; set; }
 
@@ -29,10 +31,18 @@ namespace MyLibrary.Attribute.Web.WebForm
 
         public string StringLengthNotInMaxAndMinErrorString { set; get; }
 
-        public CustomStringValidationAttribute(string Description, bool isRequired)
+        public CustomStringValidationAttribute(string Description, bool isRequired, string Regex)
         {
             this.isRequired = isRequired;
             this.Description = Description;
+            this.Regex = Regex;
+        }
+
+        public CustomStringValidationAttribute(string Description, bool isRequired, RegexFormetType Regex)
+        {
+            this.isRequired = isRequired;
+            this.Description = Description;
+            this.Regex = Regex != RegexFormetType.None ? CustomEnum.GetEnumStrAttribute<RegexFormetType, RegexFormetReporsityAttribute>(Regex) : null;
         }
 
         private readonly string Description;
@@ -95,7 +105,7 @@ namespace MyLibrary.Attribute.Web.WebForm
                 yield return new RequiredAttribute() { AllowEmptyStrings = isRequired, ErrorMessage = RequiredErrorString };
             if (Regex != null)
                 yield return new RegularExpressionAttribute(Regex) { ErrorMessage = RegexErrorString };
-            if (!(StringMaxLength <= 0 && StringMinLength <= 0))
+            if (StringMaxLength > 0)
                 yield return new StringLengthAttribute(StringMaxLength) { MinimumLength = StringMinLength };
 
         }
