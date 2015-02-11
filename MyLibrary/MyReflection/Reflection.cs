@@ -10,7 +10,7 @@ using System.Collections;
 
 namespace MyLibrary.MyReflection
 {
-    public class Reflection
+    public static class Reflection
     {
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace MyLibrary.MyReflection
         /// <typeparam name="T">Model class</typeparam>
         /// <param name="dt">要對應的表格</param>
         /// <returns>回傳對應好的 T </returns>
-        public  T DataTableRefToOne<T>(DataTable dt) where T : new()
+        public static T DataTableRefToOne<T>(DataTable dt) where T : new()
         {
             DataTableReader dtr = new DataTableReader(dt);
 
@@ -45,7 +45,7 @@ namespace MyLibrary.MyReflection
         /// <typeparam name="T">Model class</typeparam>
         /// <param name="dt">要對應的表格</param>
         /// <returns>回傳對應好的IList</returns>
-        public IList<T> DataTableRefToList<T>(DataTable dt) where T : new()
+        public static IList<T> DataTableRefToList<T>(DataTable dt) where T : new()
         {
             DataTableReader dtr = new DataTableReader(dt);
 
@@ -64,8 +64,8 @@ namespace MyLibrary.MyReflection
             return Data;
         }
 
-        
-        private void SetPropertyValue(object instance, string val, PropertyInfo info)
+
+        private static void SetPropertyValue(object instance, string val, PropertyInfo info)
         {
             //本方法由"http://kevintsengtw.blogspot.tw/2013/05/aspnet-mvc-model-adonet.html#.VDczPvmSztv" 參考而來
             try
