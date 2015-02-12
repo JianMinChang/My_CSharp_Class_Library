@@ -51,8 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attribute\Web\RegexFormetReporsityAttribute.cs" />
-    <Compile Include="Attribute\Web\UseSSLAttribute.cs" />
+    <Compile Include="Attribute\General\RegexFormetReporsityAttribute.cs" />
+    <Compile Include="Attribute\General\UseSSLAttribute.cs" />
     <Compile Include="Attribute\Web\WebForm\CustomDateTimeValidationAttribute.cs" />
     <Compile Include="Attribute\Web\WebForm\CustomNumberRangeValidationAttribute.cs" />
     <Compile Include="Attribute\Web\WebForm\CustomStringValidationAttribute.cs" />
