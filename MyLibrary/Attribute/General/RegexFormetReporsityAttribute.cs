@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyLibrary.Attribute
 {
-
+    /// <summary>
+    /// 自定列舉使用屬性，提供存取正規表示式寫法
+    /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class RegexFormetReporsityAttribute : System.Attribute
     {

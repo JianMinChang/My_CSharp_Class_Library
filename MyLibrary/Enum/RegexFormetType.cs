@@ -7,6 +7,9 @@ using MyLibrary.Attribute;
 
 namespace MyLibrary.Enum.CustomEnumRepository
 {
+    /// <summary>
+    /// 列舉正規表示法
+    /// </summary>
     public enum RegexFormetType
     {
         [RegexFormetReporsityAttribute("")]
