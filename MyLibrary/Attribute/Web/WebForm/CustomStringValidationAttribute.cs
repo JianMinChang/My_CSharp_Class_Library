@@ -11,6 +11,9 @@ using MyLibrary.Enum;
 
 namespace MyLibrary.Attribute.Web.WebForm
 {
+    /// <summary>
+    /// 自定驗證字串格式的屬性，驗證規則由傳入的正規表示法決定
+    /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true, Inherited = false)]
     public class CustomStringValidationAttribute : ValidationAttribute
     {

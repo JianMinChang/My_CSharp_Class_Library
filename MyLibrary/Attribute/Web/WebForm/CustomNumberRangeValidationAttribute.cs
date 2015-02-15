@@ -9,6 +9,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyLibrary.Attribute.Web.WebForm
 {
+    /// <summary>
+    /// 自定驗正數字的屬性
+    /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true, Inherited = false)]
     public class CustomNumberRangeValidationAttribute : ValidationAttribute
     {
