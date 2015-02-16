@@ -12,6 +12,9 @@ using MyLibrary.BaseCode.ADO.InterFace;
 
 namespace MyLibrary.BaseCode.ADO.Repository
 {
+    /// <summary>
+    /// MsSQL實做IDBProvider
+    /// </summary>
     public class CustomMsSQL : IDBProvider
     {
 

@@ -7,6 +7,9 @@ using System.Data;
 
 namespace MyLibrary.BaseCode.ADO.InterFace
 {
+    /// <summary>
+    /// 定義DBProvider需要實做的內容
+    /// </summary>
     public interface IDBProvider
     {
         bool IsSuccess { get; }

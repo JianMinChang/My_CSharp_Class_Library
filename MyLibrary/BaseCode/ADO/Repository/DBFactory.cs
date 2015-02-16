@@ -9,6 +9,11 @@ namespace MyLibrary.BaseCode.ADO.Repository
 {
     public static class DBFactory
     {
+        /// <summary>
+        /// 由CustomDBType取得IDBProider
+        /// </summary>
+        /// <param name="DBType">選擇使用的DB類型</param>
+        /// <returns></returns>
         public static IDBProvider GetDBFactory(CustomDBType DBType)
         {
 
@@ -22,6 +27,7 @@ namespace MyLibrary.BaseCode.ADO.Repository
                     temp = new CustomMySql();
                     break;
                 default:
+                    temp = new CustomMsSQL();
                     break;
             }
 
@@ -30,7 +36,9 @@ namespace MyLibrary.BaseCode.ADO.Repository
 
     }
 
-
+    /// <summary>
+    /// 可使用的DB類型
+    /// </summary>
     public enum CustomDBType
     {
         MsSQL = 0, MySql = 1

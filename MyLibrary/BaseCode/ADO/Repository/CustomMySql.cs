@@ -13,6 +13,9 @@ using MyLibrary.BaseCode.ADO.InterFace;
 
 namespace MyLibrary.BaseCode.ADO.Repository
 {
+    /// <summary>
+    /// MySQL實做IDBProvider
+    /// </summary>
     public class CustomMySql : IDBProvider
     {
 
