@@ -9,6 +9,9 @@ using MyLibrary.BaseCode.ADO.InterFace;
 
 namespace MyLibrary.BaseCode.Repository
 {
+    /// <summary>
+    /// 實做IBaseRepository，此Class可以用於省略重複性程式碼
+    /// </summary>
     public class BaseRepository : IBaseRepository
     {
         public bool IsSuccess { protected set; get; }
