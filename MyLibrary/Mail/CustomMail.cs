@@ -8,13 +8,17 @@ using System.Net.Mail;
 
 namespace MyLibrary.Mail
 {
-
+    /// <summary>
+    /// mail server 列舉
+    /// </summary>
     public enum CustomSmtpList
     {
         None = 0, Outlook = 1, Gmail = 2, Yahoo = 3, Hotmail = 4
     }
 
-
+    /// <summary>
+    /// 自建發Email
+    /// </summary>
     public class CustomMail
     {
         public bool IsSuccess { private set; get; }
@@ -35,6 +39,11 @@ namespace MyLibrary.Mail
             this.initEmailAccount = EmailAccont;
         }
 
+        /// <summary>
+        /// 取得SmtpClient
+        /// </summary>
+        /// <param name="smtp"></param>
+        /// <returns></returns>
         private SmtpClient GetSmtpClient(CustomSmtpList smtp)
         {
             SmtpClient tmp;
@@ -62,6 +71,9 @@ namespace MyLibrary.Mail
             return tmp;
         }
 
+        /// <summary>
+        /// 初始化預設值
+        /// </summary>
         private void Reset()
         {
             this.IsSuccess = false;

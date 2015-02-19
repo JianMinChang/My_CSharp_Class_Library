@@ -73,6 +73,7 @@
     <Compile Include="Enum\CustomEnum.cs" />
     <Compile Include="Enum\RegexFormetType.cs" />
     <Compile Include="File\FileHandle.cs" />
+    <Compile Include="Mail\CustomMail.cs" />
     <Compile Include="Mobile\OSDetail.cs" />
     <Compile Include="MyReflection\Reflection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
