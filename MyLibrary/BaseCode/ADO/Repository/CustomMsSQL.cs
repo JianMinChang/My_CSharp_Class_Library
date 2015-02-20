@@ -289,7 +289,8 @@ namespace MyLibrary.BaseCode.ADO.Repository
         public void LotSqlBulkCopy<T>(string DestinationTable, IList<T> temp)
         {
             BeforeUseReset();
-            DataTable newdt = ToDataTable(temp);
+
+            DataTable newdt = MyLibrary.MyReflection.Reflection.ToDataTable<T>(temp);
             try
             {
                 using (SqlConnection conn = new SqlConnection(this._DBConnectionString))
@@ -320,26 +321,5 @@ namespace MyLibrary.BaseCode.ADO.Repository
 
         }
 
-        public static DataTable ToDataTable<T>(IEnumerable<T> collection)
-        {
-            var props = typeof(T).GetProperties();
-            var dt = new DataTable();
-            dt.Columns.AddRange(props.Select(p => new DataColumn(p.Name, p.PropertyType)).ToArray());
-            if (collection.Count() > 0)
-            {
-                for (int i = 0; i < collection.Count(); i++)
-                {
-                    ArrayList tempList = new ArrayList();
-                    foreach (PropertyInfo pi in props)
-                    {
-                        object obj = pi.GetValue(collection.ElementAt(i), null);
-                        tempList.Add(obj);
-                    }
-                    object[] array = tempList.ToArray();
-                    dt.LoadDataRow(array, true);
-                }
-            }
-            return dt;
-        }
     }
 }
