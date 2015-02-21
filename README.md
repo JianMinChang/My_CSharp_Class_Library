@@ -2,22 +2,46 @@ My CSharp Class Library
 =======================
 **My Custom C sharp Class Library**
 
-Encrypt:MD5 use by Ms
+Attribute:
+    Custom Attribute. Ex : UseSSLAttribute、RegexFormetReporsityAttribute
 
-DBProvider:Ado.net to MSSQL
+BaseCode:
+    Custom Interface、 Class. 
 
-Reflection:DataTalbe mapping to Model Object , Obj List change to DataTable
+Cryptography:
+    AES、RSA、Base64、MD5
 
-VailidText:Valid Use Input
+CustomNumber:
+    Custom Number Class. (int TO string and add '0' n  Digits  )
 
-NumberHandle : int TO string and add '0' n  Digits  
+DB:
+    DBProvider:Ado.net to MSSQL.
 
-XmlToDataTable:DataTable transfer XML
+Enum:
+    Custom Enum.
+
+File:
+    Custom File handle class.
+
+Mail :
+    Custom Mail handle class.
+
+Mobile:
+    Use Regex get Mobile Detail (Get OSVersion Detail)
+
+Reflection:
+    DataTalbe mapping to Model Object , Obj List change to DataTable
+
+Valid : 
+    VailidText (Valid Use Input)
+
+Web :
+    WebParms.cs (Get URL QueryString、Form Parms  Change TO Object)
+    WebRequest.cs (Custom WebRequest handle class)
+    
+Xml:
+    Xml handle class
 
 ShareDLL:Need Use DLL
 
-OSDetail:Get OSVersion Detail
-
-WebClass:Get URL QueryString  Change TO Object
-
-Last Modify:2015/01/06
+Last Modify:2015/02/21
