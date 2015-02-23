@@ -7,7 +7,9 @@ using System.Data;
 
 namespace MyLibrary.BaseCode.InterFace
 {
-
+    /// <summary>
+    /// 定義基礎需要實做的IBaseRepository
+    /// </summary>
     public interface IBaseRepository
     {
         bool IsSuccess { get; }
